@@ -1,0 +1,5 @@
+shepherd_log.jsonl
+__pycache__/
+message.md
+response.md
+pretool_test.py
