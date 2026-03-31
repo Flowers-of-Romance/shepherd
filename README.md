@@ -1,8 +1,8 @@
 # shepherd
 
-Claude Code の PostToolUse hook で動く崖検出。別の LLM が PLAN.md と照合して、エージェントが崖に向かっていたら通知する。
+Claude Code の PostToolUse hook で動く崖っぷち検出。別の LLM が PLAN.md と照合して、エージェントが崖に向かっていたら通知する。
 
-ハーネスは事前に制約を敷く。shepherd は逆で、エージェントを自由に走らせて、崖に向かっているときだけ介入する。
+shepherd は、エージェントを自由に走らせて、崖に向かっているときだけ介入する。
 
 ## 仕組み
 
