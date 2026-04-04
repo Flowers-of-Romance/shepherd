@@ -320,20 +320,20 @@ def act_on_judgment(judgment: dict):
         # メッセージファイルがあれば消す（問題解消）
         MESSAGE_FILE.unlink(missing_ok=True)
     elif distance == "near":
-        send_toast("Shepherd", f"Near cliff: {reason}")
+        send_toast("🐑 めぇ…", f"崖が近いよ: {reason}")
         try:
             MESSAGE_FILE.write_text(
-                f"⚠ **near**: {reason}\n\n_— shepherd ({datetime.now(JST).strftime('%H:%M')})_\n",
+                f"🐑 **崖が近いよ**: {reason}\n\n_— shepherd ({datetime.now(JST).strftime('%H:%M')})_\n",
                 encoding="utf-8",
             )
         except Exception:
             pass
     elif distance == "cliff":
-        send_toast("SHEPHERD: CLIFF", f"STOP: {reason}")
-        send_line(f"🚨 SHEPHERD CLIFF\n{reason}")
+        send_toast("🐑🐑🐑 危ない！！", f"崖っぷち: {reason}")
+        send_line(f"🐑🐑🐑 崖っぷち！\n{reason}")
         try:
             MESSAGE_FILE.write_text(
-                f"🚨 **CLIFF**: {reason}\n\n_— shepherd ({datetime.now(JST).strftime('%H:%M')})_\n",
+                f"🐑🐑🐑 **崖っぷち！**: {reason}\n\n_— shepherd ({datetime.now(JST).strftime('%H:%M')})_\n",
                 encoding="utf-8",
             )
         except Exception:
