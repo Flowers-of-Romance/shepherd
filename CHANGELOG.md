@@ -1,5 +1,14 @@
 # Changelog
 
+## [v1.2] - 2026-04-11
+
+### Added
+- **ダッシュボード**: `python dashboard_server.py` で localhost:8385 にTrello風カンバンボードを起動
+- **3ビュー**: Board（far/near/cliff 3カラム）、Timeline（全履歴の時系列表示）、PLAN.md（全文表示）
+- **GNU風の羊**: ブロック文字 `▄███▄` で描いた羊がfar(°_°)/near(O_O)/cliff(X_X)で表情変化。cliffで震える
+- **自動更新**: 5秒ごとにfetchしてリアルタイム反映
+- **ヘッダー**: 最新判定インジケーター、far/near/cliff比率バー、ACTIVE/OFFバッジ
+
 ## [v1.1] - 2026-04-04
 
 ### Added
