@@ -84,6 +84,19 @@ def read_status() -> dict:
     return status
 
 
+MESSAGE_FILE = SHEPHERD_DIR / "message.md"
+RESPONSE_FILE = SHEPHERD_DIR / "response.md"
+
+
+def read_messages() -> dict:
+    result = {"message": None, "response": None}
+    if MESSAGE_FILE.exists():
+        result["message"] = MESSAGE_FILE.read_text(encoding="utf-8")
+    if RESPONSE_FILE.exists():
+        result["response"] = RESPONSE_FILE.read_text(encoding="utf-8")
+    return result
+
+
 class Handler(SimpleHTTPRequestHandler):
     def do_GET(self):
         if self.path == "/":
@@ -96,6 +109,8 @@ class Handler(SimpleHTTPRequestHandler):
             self._json_response(parse_plan())
         elif self.path == "/api/status":
             self._json_response(read_status())
+        elif self.path == "/api/messages":
+            self._json_response(read_messages())
         else:
             self.send_error(404)
 
@@ -125,7 +140,7 @@ class Handler(SimpleHTTPRequestHandler):
 
 def main():
     import sys
-    port = int(sys.argv[1]) if len(sys.argv) > 1 else 8385
+    port = int(sys.argv[1]) if len(sys.argv) > 1 else 8386
     server = HTTPServer(("127.0.0.1", port), Handler)
     server.allow_reuse_address = True
     print(f"Shepherd Dashboard: http://localhost:{port}")

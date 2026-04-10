@@ -450,6 +450,50 @@ body {
   padding: 40px 20px;
   opacity: 0.5;
 }
+
+/* Message bar */
+.msg-bar {
+  display: none;
+  border-bottom: 1px solid rgba(248,113,113,0.2);
+  background: rgba(248,113,113,0.04);
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.msg-bar.visible { display: block; }
+
+.msg-bar-inner {
+  padding: 10px 24px;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.msg-letter {
+  flex: 1;
+  min-width: 0;
+}
+
+.msg-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--red);
+  margin-bottom: 4px;
+}
+
+.msg-response .msg-label {
+  color: var(--green);
+}
+
+.msg-text {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text);
+  opacity: 0.9;
+  white-space: pre-wrap;
+}
 </style>
 </head>
 <body>
@@ -478,6 +522,19 @@ body {
   <div class="tab active" data-view="board">Board</div>
   <div class="tab" data-view="timeline">Timeline</div>
   <div class="tab" data-view="plan" id="tab-plan">PLAN.md</div>
+</div>
+
+<div class="msg-bar" id="msg-bar">
+  <div class="msg-bar-inner">
+    <div class="msg-letter" id="msg-letter">
+      <div class="msg-label">shepherd</div>
+      <div class="msg-text" id="msg-text"></div>
+    </div>
+    <div class="msg-letter msg-response" id="msg-response" style="display:none">
+      <div class="msg-label">agent</div>
+      <div class="msg-text" id="msg-response-text"></div>
+    </div>
+  </div>
 </div>
 
 <div class="main" id="main">
@@ -655,11 +712,12 @@ let lastLogLen = -1;
 
 async function refreshBoard() {
   try {
-    const [logRes, planRes, statusRes] = await Promise.all([
-      fetch("/api/log"), fetch("/api/plan"), fetch("/api/status")
+    const [logRes, planRes, statusRes, msgRes] = await Promise.all([
+      fetch("/api/log"), fetch("/api/plan"), fetch("/api/status"), fetch("/api/messages")
     ]);
     const log = await logRes.json();
     const plan = await planRes.json();
+    const msgs = await msgRes.json();
     const status = await statusRes.json();
 
     if (log.length !== lastLogLen) {
@@ -714,6 +772,22 @@ async function refreshBoard() {
     } else {
       badge.textContent = "OFF";
       badge.className = "active-badge off";
+    }
+
+    // Messages
+    const bar = $("msg-bar");
+    if (msgs.message) {
+      bar.classList.add("visible");
+      $("msg-text").textContent = msgs.message;
+      const respEl = $("msg-response");
+      if (msgs.response) {
+        respEl.style.display = "";
+        $("msg-response-text").textContent = msgs.response;
+      } else {
+        respEl.style.display = "none";
+      }
+    } else {
+      bar.classList.remove("visible");
     }
   } catch (e) {}
 }
