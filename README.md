@@ -65,6 +65,36 @@ PLAN.md の `<!-- shepherd: backend=xxx -->` で切り替え:
 
 作業してるエージェントと検証するエージェントが別のモデルだと、迎合性が減る。
 
+## ダッシュボード
+
+```
+python C:/shepherd/dashboard_server.py
+```
+
+ブラウザで http://localhost:8385 を開く。
+
+```
+╭▄███▄╮
+▐ °_° ▌  ← far: 草原。順調
+ ▀█▀█▀
+  ▐▌▐▌
+
+╭▄███▄╮ !
+▐ O_O ▌  ← near: 崖方向。警告
+ ▀█▀█▀
+  ▐▌▐▌
+
+╭▄███▄╮!!
+▐ X_X ▌  ← cliff: 崖っぷち。震える
+ ▀█▀█▀
+  ▐▌▐▌
+```
+
+3つのビュー:
+- **Board** — Trello風3カラム（far / near / cliff）
+- **Timeline** — 全判定ログを日付別に時系列表示
+- **PLAN.md** — 現在のPLANを全文表示
+
 ## 対話
 
 shepherd は `message.md` にメッセージを書く。エージェントは `response.md` に返事を書く。次のチェック時に shepherd が返事を読む。ファイルを介した非同期の手紙。コンテキスト汚染ゼロ。
