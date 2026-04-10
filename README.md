@@ -68,10 +68,10 @@ PLAN.md の `<!-- shepherd: backend=xxx -->` で切り替え:
 ## ダッシュボード
 
 ```
-python C:/shepherd/dashboard_server.py
+python dashboard_server.py
 ```
 
-ブラウザで http://localhost:8385 を開く。
+ブラウザで http://localhost:8386 を開く。
 
 ```
 ╭▄███▄╮
